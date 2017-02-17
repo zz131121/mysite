@@ -8,6 +8,12 @@ import datetime
 import os
 
 def index(req):
+  home_name=''
+  try:
+    home_pic=UploadFile.objects.get(timestamp='00000000000000')
+    home_name=home_pic.name+'.'+home_pic.exname
+  except:
+    pass
   novel_list=UploadFile.objects.filter(typ="novel")
   novel_name=[]
   for novel in novel_list:
@@ -20,7 +26,7 @@ def index(req):
   movie_name=[]
   for movie in movie_list:
     movie_name.append(movie.timestamp+'.'+movie.exname)
-  return render(req, 'backend.html',{'pic_list':pic_name,'novel_list':novel_name,'movie_list':movie_name})
+  return render(req, 'backend.html',{'home_list':home_name,'pic_list':pic_name,'novel_list':novel_name,'movie_list':movie_name})
 
 def upload(req):
   domain_name=req.REQUEST.get('domain','xxx')
@@ -30,20 +36,18 @@ def upload(req):
     if len(UploadFile.objects.filter(timestamp='00000000000000')):
       a = UploadFile.objects.get(timestamp='00000000000000')
       try:
-        os.remove('upload/'+a.name+'.'+a.exname)
+        os.remove('upload/home_upload.jpg')
       except:
         pass
     else:
       a = UploadFile()
       a.timestamp='00000000000000'
-    fn = content.name
-    a.name = content.name.split('.')[0]
-    a.exname = content.name.split('.')[-1]
+    a.name = 'home_upload'
+    a.exname = 'jpg'
     a.save()
     if not os.path.exists('upload'):     #路径不存在时创建一个
       os.makedirs('upload')
-    f_path='upload/'+fn
-    with open(f_path, 'wb+') as info:  
+    with open('upload/home_upload.jpg', 'wb+') as info:  
       for chunk in content.chunks(): 
         info.write(chunk)
   else:
@@ -90,20 +94,28 @@ def upload(req):
 def delete(req):
   domain_name=req.REQUEST.get('domain','xxx')
   file_name=req.REQUEST.get('title','xxx')
-  b = UploadFile.objects.get(timestamp=file_name.split('.')[0], exname=file_name.split('.')[1])
-  b.delete()
-  os.remove('upload/'+b.timestamp+'.'+b.exname)
-  if domain_name=='image':
-    try:
-      os.remove('upload/'+'cache_'+b.timestamp+'.jpeg')
-    except:
-      pass
-  if domain_name=='movie':
-    try:
-      os.remove('upload/'+'mp4t_'+b.timestamp+'.jpeg')
-      os.remove('upload/'+'mp4_'+b.timestamp+'.jpeg')
-    except:
-      pass
+  if domain_name == 'home_image':
+    b = UploadFile.objects.get(timestamp='00000000000000')
+    os.remove('upload/home_upload.jpg')
+    b.delete()
+  else:
+    if domain_name == 'novel':
+      b = UploadFile.objects.get(name=file_name.split('.')[0], exname=file_name.split('.')[1])
+    else:
+      b = UploadFile.objects.get(timestamp=file_name.split('.')[0], exname=file_name.split('.')[1])
+    os.remove('upload/'+b.timestamp+'.'+b.exname)
+    if domain_name=='image':
+      try:
+        os.remove('upload/'+'cache_'+b.timestamp+'.'+b.exname)
+      except:
+        pass
+    if domain_name=='movie':
+      try:
+        os.remove('upload/'+'mp4t_'+b.timestamp+'.jpeg')
+        os.remove('upload/'+'mp4_'+b.timestamp+'.jpeg')
+      except:
+        pass
+    b.delete()
   return HttpResponseRedirect('backend')
  
 # Create your views here.

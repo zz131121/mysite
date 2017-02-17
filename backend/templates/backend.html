@@ -7,7 +7,11 @@
 <body>
 <p style="font-weight: bold; font-size: 24px;">后台管理系统</p>
 <p>主页图片</p>
-<p>{{home_list|safe}} </p>
+{% if home_list %}
+<div>
+	<a href="/upload/{{home_list}}" >Home Picture</a><br><a href="/delete?domain=home_image&title={{home_list}}" >删除</a>
+</div>
+{% endif %}
 <div class="file-box"> 
 <form action="/Upload?domain=homepage" method="post" enctype="multipart/form-data"> 
 <input type='text' name='textfield' id='textfield1' class='txt' /> 
