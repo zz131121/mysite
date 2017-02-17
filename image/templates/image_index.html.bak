@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>美图列表</title>
+</head>
+<style>
+body{background-color:#FEEBEA}
+.title{
+	 width:100%;
+	 background:#E4D7BA;
+}
+.box_pic{
+	display: -webkit-box; 
+	display: -moz-box;
+	float:left;
+	width:260px;
+	height:260px;
+	padding:15px;
+	border:5px solid #FBFBEA;
+	background:#743;
+	-webkit-box-pack:center; 
+	-moz-box-pack:center; 
+	-webkit-box-align:center; 
+	-moz-box-align:center; 
+	}
+.board{
+	width:auto;
+	height:auto;
+	border:5px solid #333;
+}
+</style>
+<div class="title" align="center" style="font-size: 36px; font-family: '华文新魏';">========美图列表========</div>
+<p><a href="/" >返回首页</a></p>
+{% for pic in pic_list %}
+<div class="box_pic" align="center">
+<div class='board'>
+<a href="/beauty?title={{pic.ori}}" ><img src="/upload/{{pic.cache}}"/></a>
+</div>
+</div>
+{% endfor %}
+</html>

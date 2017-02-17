@@ -1,0 +1,36 @@
+"""mysite URL Configuration
+
+The `urlpatterns` list routes URLs to views. For more information please see:
+    https://docs.djangoproject.com/en/1.8/topics/http/urls/
+Examples:
+Function views
+    1. Add an import:  from my_app import views
+    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
+Class-based views
+    1. Add an import:  from other_app.views import Home
+    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
+Including another URLconf
+    1. Add an import:  from blog import urls as blog_urls
+    2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
+"""
+from django.conf.urls import include, url
+from django.contrib import admin
+from django.conf import settings
+from learn import views as learn_views
+from homepage import views as homepage_views
+from backend import views as backend_views
+from novel import views as novel_views
+from image import views as image_views
+from movie import views as movie_views
+
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', homepage_views.index),
+    url(r'^backend$',backend_views.index),
+    url(r'^Upload$',backend_views.upload),
+    url(r'^delete$',backend_views.delete),
+    url(r'^novel$',novel_views.index),
+    url(r'^image$',image_views.index),
+    url(r'^movie$',movie_views.index),
+    url(r'^upload/(?P<path>.*)$',  'django.views.static.serve', {'document_root':settings.MEDIA_ROOT}),
+]

@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Welcome</title>
+</head>
+
+<style type="text/css">
+#name {
+	font-family: "华文新魏";
+	font-size: 36px;
+	color: #EEE8AA;
+	background-color: #4682B4;
+	background-position: center top;
+	height: 50px;
+	width: 99%;
+	max-width: 1000px;
+	margin: auto;
+	padding: 0px;
+	list-style-type: disc;
+}
+#Box1 img{
+	font-family: "华文新魏";
+	font-size: 24px;
+	background-color: #87CEEB;
+	background-position: center top;
+	height: Auto;
+	width: 99%;
+	margin: auto;
+	padding: 0px;
+	list-style-type: disc;
+}
+#Box2 {
+	background-color: #87CEEB;
+	height: Auto;
+	width: 99%;
+	max-width: 1000px;
+	margin: auto;
+	padding: 0px;
+	-webkit-box-pack:center; 
+	-moz-box-pack:center; 
+	-webkit-box-align:center; 
+	-moz-box-align:center; 
+}
+#s_table {
+	background-color: #17CEEB;
+	line-height: 36px;
+    height: 38px;
+	width: 100%;
+	max-width: 1000px;
+    float: left;
+    zoom: 1;
+}
+#s_table a, #s_table b {
+	font-family: "微软雅黑";
+	font-size: 20px;
+	width: 120px;
+	display: inline-block;
+	text-decoration: underline;
+	text-align: center;
+	color: #333;
+}
+</style>
+
+<body link="#000000">
+<div align="center" id="name">
+  <div align="center">Welcome to my website</div>
+</div>
+<div align="center" id="Box2">
+<div align="left" id="s_table">
+<a href="/image" >PICTURE</a>
+<a href="/novel" >LITERATURE</a>
+<a href="/movie" >MOVIE</a>
+</div>
+<div align="center" id="Box1">
+<div align="center" style="max-height:98%; max-width:98%;"> <img src= /upload/{{home|safe}}></div>
+</div>
+</div>
+<p align="center">Current time:{{current_date}}</p>
+</body>
+
+</html>

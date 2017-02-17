@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>后台管理系统</title>
+</head>
+
+<body>
+<p style="font-weight: bold; font-size: 24px;">后台管理系统</p>
+<p>主页图片</p>
+<p>{{home_list|safe}} </p>
+<div class="file-box"> 
+<form action="/Upload?domain=homepage" method="post" enctype="multipart/form-data"> 
+<input type='text' name='textfield' id='textfield1' class='txt' /> 
+<input type="file" name="ContextField" class="file" id="ContextField" size="28" onChange="document.getElementById('textfield1').value=this.value" /> 
+<input type="submit" name="submit" class="btn" value="上主页图片" /> 
+</form> 
+</div>
+<p>小说列表</p>
+{% for novel in novel_list %}
+<div>
+    <a href="/novel?title={{novel}}" >{{novel}}</a><br><a href="/delete?domain=novel&title={{novel}}" >删除</a>
+</div>
+{% endfor %}
+
+<div class="file-box"> 
+<form action="/Upload?domain=novel" method="post" enctype="multipart/form-data"> 
+<input type='text' name='textfield' id='textfield2' class='txt' /> 
+<input type="file" name="ContextField" class="file" id="ContextField" size="28" onChange="document.getElementById('textfield2').value=this.value" multiple/> 
+<input type="submit" name="submit" class="btn" value="上传小说" /> 
+</form> 
+</div> 
+<p>图片列表</p>
+{% for pic in pic_list %}
+<div>
+    <a href="/image?title={{pic}}" >{{pic}}</a><br><a href="/delete?domain=image&title={{pic}}" >删除</a>
+</div>
+{% endfor %}
+
+<div class="file-box"> 
+<form action="/Upload?domain=image" method="post" enctype="multipart/form-data"> 
+<input type='text' name='textfield' id='textfield3' class='txt' /> 
+<input type="file" name="ContextField" class="file" id="ContextField" size="28" onChange="document.getElementById('textfield3').value=this.value" multiple/> 
+<input type="submit" name="submit" class="btn" value="上传图片" /> 
+</form> 
+</div> 
+<p>视频列表</p>
+{% for movie in movie_list %}
+<div>
+    <a href="/movie?title={{movie}}" >{{movie}}</a><br><a href="/delete?domain=movie&title={{movie}}" >删除</a>
+</div>
+{% endfor %}
+
+<div class="file-box"> 
+<form action="/Upload?domain=movie" method="post" enctype="multipart/form-data"> 
+<input type='text' name='textfield' id='textfield2' class='txt' /> 
+<input type="file" name="ContextField" class="file" id="ContextField" size="28" onChange="document.getElementById('textfield2').value=this.value" multiple/> 
+<input type="submit" name="submit" class="btn" value="上传视频" /> 
+</form> 
+</div>
+</body>
+<p>
+
+<a href="/" >返回首页</a>
+
+</html>

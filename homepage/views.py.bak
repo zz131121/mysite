@@ -1,0 +1,8 @@
+from django.shortcuts import render
+import datetime
+
+def index(req):
+	now=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+	return render(req, 'home.html', {'current_date':now,'home':'/upload/home.jpg'})
+
+# Create your views here.
