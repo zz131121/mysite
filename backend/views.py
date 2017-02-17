@@ -36,18 +36,18 @@ def upload(req):
     if len(UploadFile.objects.filter(timestamp='00000000000000')):
       a = UploadFile.objects.get(timestamp='00000000000000')
       try:
-        os.remove('upload/home_upload.jpg')
+        os.remove('upload/'+a.name+'.'+a.exname)
       except:
         pass
     else:
       a = UploadFile()
       a.timestamp='00000000000000'
-    a.name = 'home_upload'
-    a.exname = 'jpg'
+    a.name = 'home_'+datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    a.exname = content.name.split('.')[-1]
     a.save()
     if not os.path.exists('upload'):     #路径不存在时创建一个
       os.makedirs('upload')
-    with open('upload/home_upload.jpg', 'wb+') as info:  
+    with open('upload/'+a.name+'.'+a.exname, 'wb+') as info:  
       for chunk in content.chunks(): 
         info.write(chunk)
   else:
@@ -96,7 +96,7 @@ def delete(req):
   file_name=req.REQUEST.get('title','xxx')
   if domain_name == 'home_image':
     b = UploadFile.objects.get(timestamp='00000000000000')
-    os.remove('upload/home_upload.jpg')
+    os.remove('upload/'+b.name+'.'+b.exname)
     b.delete()
   else:
     if domain_name == 'novel':
