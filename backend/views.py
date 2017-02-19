@@ -7,6 +7,8 @@ from moviepy.editor import *
 import datetime
 import os
 
+BASE_DIR_upload = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+'/upload/'
+
 def index(req):
   home_name=''
   try:
@@ -17,7 +19,7 @@ def index(req):
   novel_list=UploadFile.objects.filter(typ="novel")
   novel_name=[]
   for novel in novel_list:
-    novel_name.append(novel.name+'.'+novel.exname)
+    novel_name.append(novel.name)
   pic_list=UploadFile.objects.filter(typ="image")
   pic_name=[]
   for pic in pic_list:
@@ -36,7 +38,7 @@ def upload(req):
     if len(UploadFile.objects.filter(timestamp='00000000000000')):
       a = UploadFile.objects.get(timestamp='00000000000000')
       try:
-        os.remove('upload/'+a.name+'.'+a.exname)
+        os.remove(BASE_DIR_upload+a.name+'.'+a.exname)
       except:
         pass
     else:
@@ -47,7 +49,7 @@ def upload(req):
     a.save()
     if not os.path.exists('upload'):     #路径不存在时创建一个
       os.makedirs('upload')
-    with open('upload/'+a.name+'.'+a.exname, 'wb+') as info:  
+    with open(BASE_DIR_upload+a.name+'.'+a.exname, 'wb+') as info:  
       for chunk in content.chunks(): 
         info.write(chunk)
   else:
@@ -71,20 +73,20 @@ def upload(req):
       fn+=fnex
       if not os.path.exists('upload'):     #路径不存在时创建一个
         os.makedirs('upload')
-      f_path='upload/'+fn
+      f_path=BASE_DIR_upload+fn
       with open(f_path, 'wb+') as info:  
         for chunk in f.chunks(): 
           info.write(chunk)
       if domain_name=='image':
         imagecache = Image.open(f)
         imagecache.thumbnail((250,250),Image.ANTIALIAS)
-        imagecache.convert('RGB').save('upload/'+'cache_'+fn,"jpeg")
+        imagecache.convert('RGB').save(BASE_DIR_upload+'cache_'+fn,"jpeg")
       if domain_name=='movie':
-        clip = VideoFileClip('upload/'+fn)
-        clip.save_frame('upload/'+'mp4t_'+a.timestamp+'.jpeg',t=1.00)
-        imagecache = Image.open('upload/'+'mp4t_'+a.timestamp+'.jpeg')
+        clip = VideoFileClip(f_path)
+        clip.save_frame(BASE_DIR_upload+'mp4t_'+a.timestamp+'.jpeg',t=1.00)
+        imagecache = Image.open(BASE_DIR_upload+'mp4t_'+a.timestamp+'.jpeg')
         imagecache.thumbnail((250,250),Image.ANTIALIAS)
-        imagecache.convert('RGB').save('upload/'+'mp4_'+a.timestamp+'.jpeg',"jpeg")
+        imagecache.convert('RGB').save(BASE_DIR_upload+'mp4_'+a.timestamp+'.jpeg',"jpeg")
       a.exname = fnex
       a.name = f.name.split('.')[0].encode('utf-8')
       a.typ = domain_name
@@ -96,23 +98,23 @@ def delete(req):
   file_name=req.REQUEST.get('title','xxx')
   if domain_name == 'home_image':
     b = UploadFile.objects.get(timestamp='00000000000000')
-    os.remove('upload/'+b.name+'.'+b.exname)
+    os.remove(BASE_DIR_upload+b.name+'.'+b.exname)
     b.delete()
   else:
     if domain_name == 'novel':
       b = UploadFile.objects.get(name=file_name.split('.')[0], exname=file_name.split('.')[1])
     else:
       b = UploadFile.objects.get(timestamp=file_name.split('.')[0], exname=file_name.split('.')[1])
-    os.remove('upload/'+b.timestamp+'.'+b.exname)
+    os.remove(BASE_DIR_upload+b.timestamp+'.'+b.exname)
     if domain_name=='image':
       try:
-        os.remove('upload/'+'cache_'+b.timestamp+'.'+b.exname)
+        os.remove(BASE_DIR_upload+'cache_'+b.timestamp+'.'+b.exname)
       except:
         pass
     if domain_name=='movie':
       try:
-        os.remove('upload/'+'mp4t_'+b.timestamp+'.jpeg')
-        os.remove('upload/'+'mp4_'+b.timestamp+'.jpeg')
+        os.remove(BASE_DIR_upload+'mp4t_'+b.timestamp+'.jpeg')
+        os.remove(BASE_DIR_upload+'mp4_'+b.timestamp+'.jpeg')
       except:
         pass
     b.delete()

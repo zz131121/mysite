@@ -4,6 +4,8 @@ from backend.models import UploadFile
 import datetime
 import os
 
+BASE_DIR_upload = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+'/upload/'
+
 def index(req):
   tit=req.REQUEST.get('title','xxx') 
   if(tit=='xxx'):
@@ -13,7 +15,7 @@ def index(req):
       novel_name.append(novel.name)
     return render(req, 'novel_index.html',{'novel_list':novel_name})
   else:
-    with open(os.path.join('upload/',UploadFile.objects.get(name=tit).timestamp+'.txt')) as n:
+    with open(BASE_DIR_upload+UploadFile.objects.get(name=tit).timestamp+'.txt') as n:
       txt = n.read()
     try:
       txt = txt.decode("utf-8")
@@ -24,7 +26,7 @@ def index(req):
     except:
       pass
     try:
-      txt = txt.decode("gbk")
+      txt = txt.decode("GB18030")
     except:
       pass
     txt = txt.replace('\r\n','<br>')
