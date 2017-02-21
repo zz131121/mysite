@@ -11,7 +11,7 @@ def index(req):
   if(tit=='xxx'):
     novel_list=UploadFile.objects.filter(typ="novel")
     novel_name=[]
-    for novel in novel_list:
+    for novel in reversed(novel_list):
       novel_name.append(novel.name)
     return render(req, 'novel_index.html',{'novel_list':novel_name})
   else:

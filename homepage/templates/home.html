@@ -1,82 +1,118 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh">
 <head>
-<meta charset="utf-8">
-<title>Welcome</title>
-</head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>美图集</title>
+	<link rel="stylesheet" type="text/css" href="static/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="static/css/default.css">
+	<style>
 
+	</style>
+	<!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
 <style type="text/css">
-#name {
-	font-family: "华文新魏";
-	font-size: 36px;
-	color: #EEE8AA;
-	background-color: #4682B4;
-	background-position: center top;
-	height: 50px;
-	width: 99%;
-	max-width: 1000px;
-	margin: auto;
-	padding: 0px;
-	list-style-type: disc;
+* {
+	margin:0;
 }
-#Box1 img{
-	font-family: "华文新魏";
-	font-size: 24px;
-	background-color: #87CEEB;
-	background-position: center top;
-	height: Auto;
-	width: 99%;
-	margin: auto;
-	padding: 0px;
-	list-style-type: disc;
+#div1 {
+	margin:auto; position:relative;
 }
-#Box2 {
-	background-color: #87CEEB;
-	height: Auto;
-	width: 99%;
-	max-width: 1000px;
-	margin: auto;
-	padding: 0px;
-	-webkit-box-pack:center; 
-	-moz-box-pack:center; 
-	-webkit-box-align:center; 
-	-moz-box-align:center; 
+.box {
+	float:left;
+	padding:10px;
+	border:1px solid #ccc;
+	background:#f7f7f7;
+	box-shadow:0 0 8px #ccc;
 }
-#s_table {
-	background-color: #17CEEB;
-	line-height: 36px;
-    height: 38px;
-	width: 100%;
-	max-width: 1000px;
-    float: left;
-    zoom: 1;
+.box:hover {
+	box-shadow:0 0 10px #999;
 }
-#s_table a, #s_table b {
-	font-family: "微软雅黑";
-	font-size: 20px;
-	width: 120px;
+.box img {
+	width:200px;
+}
+#title{
+	width:auto;
+	font-family:"微软雅黑";
+	font-size:40px;
+	text-align:center;
+	color:rgb(124,124,124);
+}
+#menu {
+	width:100%;
+	height:60px;
+	color:black;
+	text-align:center;
+	background-color: white;
+	box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 2px;
+}
+#menu a{
+	width:120px;
+	height:60px;
+	color:black;
+	line-height:60px; 
+	font-size:20px;
 	display: inline-block;
-	text-decoration: underline;
+	text-decoration: none;
 	text-align: center;
-	color: #333;
+}
+@media screen and (max-device-width: 480px) {
+	#title {
+		font-size:28px;
+	}
+	#menu {
+		height:40px;
+	}
+	#menu a{
+		width:60px;
+		height:40px;
+		line-height:40px;
+		font-size:16px;
+	}
+}
+#main_item{
+	border: #c6c6c6 2px solid;
+    width: 100%;
+	max-width:1200px;
+    background-color: white;
+    min-height: 100px;
+    padding: 5px;
+    margin: 10px 0px;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 2px;
+    border-radius: 4px;
 }
 </style>
-
-<body link="#000000">
-<div align="center" id="name">
-  <div align="center">Welcome to my website</div>
-</div>
-<div align="center" id="Box2">
-<div align="left" id="s_table">
-<a href="/movie" >MOVIE</a>
-<a href="/image" >PICTURE</a>
-<a href="/novel" >LITERATURE</a>
-</div>
-<div align="center" id="Box1">
-<div align="center" style="max-height:98%; max-width:98%;"> <img src= {{home|safe}}></div>
-</div>
-</div>
-<p align="center">Current time:{{current_date}}</p>
+<body>
+		<div id="title">
+			<p style="color:white;">景天的小屋</p>
+		</div>
+        <div id="menu">
+			<a href="/" style="background-color: #CCC;" title="首页"> 首页</a>
+            <a href="/movie" title="视频"> 视频</a>
+        	<a href="/image" title="图片"> 图片</a>
+        	<a href="/novel" title="小说"> 小说</a>
+        </div>
+		<div class="htmleaf-content bgcolor-4">
+        	<div align="center">
+                <div id="main_item" max-width:1200px;">
+                    <img align="center" style="width:100%;" src="{{home|safe}}"/>
+                </div>
+          		<p style="color:white;"align="center">Current time:{{current_date}}</p>
+            </div>
+		</div>
+	
+	<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+	<script src="static/js/jquery.waterfall.js"></script>
+	<script>
+	$("#div1").waterfall({
+	    itemClass: ".box",
+	    minColCount: 2,
+	    spacingHeight: 10,
+	    resizeable: true,
+	});
+	</script>
 </body>
-
 </html>

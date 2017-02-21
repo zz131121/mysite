@@ -47,8 +47,6 @@ def upload(req):
     a.name = 'home_'+datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     a.exname = content.name.split('.')[-1]
     a.save()
-    if not os.path.exists('upload'):     #路径不存在时创建一个
-      os.makedirs('upload')
     with open(BASE_DIR_upload+a.name+'.'+a.exname, 'wb+') as info:  
       for chunk in content.chunks(): 
         info.write(chunk)
@@ -71,21 +69,19 @@ def upload(req):
       a.timestamp = fn
       fn+='.'
       fn+=fnex
-      if not os.path.exists('upload'):     #路径不存在时创建一个
-        os.makedirs('upload')
       f_path=BASE_DIR_upload+fn
       with open(f_path, 'wb+') as info:  
         for chunk in f.chunks(): 
           info.write(chunk)
       if domain_name=='image':
         imagecache = Image.open(f)
-        imagecache.thumbnail((250,250),Image.ANTIALIAS)
+        imagecache.thumbnail((300,2000),Image.ANTIALIAS)
         imagecache.convert('RGB').save(BASE_DIR_upload+'cache_'+fn,"jpeg")
       if domain_name=='movie':
         clip = VideoFileClip(f_path)
         clip.save_frame(BASE_DIR_upload+'mp4t_'+a.timestamp+'.jpeg',t=1.00)
         imagecache = Image.open(BASE_DIR_upload+'mp4t_'+a.timestamp+'.jpeg')
-        imagecache.thumbnail((250,250),Image.ANTIALIAS)
+        imagecache.thumbnail((300,2000),Image.ANTIALIAS)
         imagecache.convert('RGB').save(BASE_DIR_upload+'mp4_'+a.timestamp+'.jpeg',"jpeg")
       a.exname = fnex
       a.name = f.name.split('.')[0].encode('utf-8')

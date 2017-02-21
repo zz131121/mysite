@@ -16,7 +16,7 @@ def index(req):
   if(tit=='xxx'): 
     pic_list=UploadFile.objects.filter(typ="image")
     pic_name = []
-    for pic in pic_list:
+    for pic in reversed(pic_list):
       pname=pic.timestamp+'.'+pic.exname
       chche_name='cache_'+pname
       pic_name.append(picn(pname,chche_name))

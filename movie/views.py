@@ -15,7 +15,7 @@ def index(req):
   if(tit=='xxx'): 
     movie_list=UploadFile.objects.filter(typ="movie")
     movie_name = []
-    for movie in movie_list:
+    for movie in reversed(movie_list):
       pname=movie.timestamp+'.'+movie.exname
       chche_name='mp4_'+movie.timestamp+'.jpeg'
       movie_name.append(movien(pname,chche_name))
