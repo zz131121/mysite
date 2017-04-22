@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="static/css/normalize.css" />
 	<link rel="stylesheet" type="text/css" href="static/css/default.css" />
 	<link rel="stylesheet" type="text/css" href="static/css/user.css" />
+	<link rel="stylesheet" type="text/css" href="static/css/myicomoon.css" />
 	<style>
 
 	</style>
@@ -15,35 +16,33 @@
 		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
 	<![endif]-->
 </head>
-
+<style>
+html,body{
+	height:100%;
+}
+#pic_item img{
+	max-height:100%;
+	max-width:100%;
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+	border: #c6c6c6 2px solid;
+  background-color: #ccc; 
+  padding: 5px;
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 2px;
+  border-radius: 4px;
+}
 </style>
 <body>
-		<div class="title">
-			<p style="color:white;">景天的小屋</p>
-		</div>
-        <div class="menu">
-			<a href="/" title="首页"> 首页</a>
-            <a href="/movie" title="视频"> 视频</a>
-        	<a href="/image" style="background-color: #CCC;" title="图片"> 图片</a>
-        	<a href="/novel" title="小说"> 小说</a>
-        </div>
-		<div class="htmleaf-content bgcolor-4">
-        	<div align="center">
-            	<div class="main_item">
-					<a href="/image" title="图片集"><img align="center" style="width:100%;" src="/upload/{{pic}}"/></a>
-            	</div>
-            </div>
+    <div class="bar" style="height:5%;">
+        <a href="/image" title="图片集"><div class="myicon-arrow-left" style="color:white; display:inline-block; display:inline;"></div></a>
+    </div>
+		<div class="htmleaf-content bgcolor-4" id="pic_item" align="center" style="height:95%;">
+					<img src="/upload/{{pic}}"/>
 		</div>
 	
 	<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
-	<script src="static/js/jquery.waterfall.js"></script>
-	<script>
-	$("#div1").waterfall({
-	    itemClass: ".box",
-	    minColCount: 2,
-	    spacingHeight: 10,
-	    resizeable: true,
-	});
-	</script>
 </body>
 </html>
